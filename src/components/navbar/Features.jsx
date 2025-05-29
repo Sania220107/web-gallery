@@ -1,7 +1,16 @@
 import React from "react";
-import { Camera, UploadCloud, MessageSquare, UserCheck } from "lucide-react"; // Menggunakan ikon dari lucide-react
+import {
+  Camera,
+  UploadCloud,
+  MessageSquare,
+  UserCheck,
+  ArrowLeft,
+} from "lucide-react"; // Tambahkan ikon panah kiri
+import { useNavigate } from "react-router-dom"; // Gunakan useNavigate
 
 const Features = () => {
+  const navigate = useNavigate(); // Hook untuk navigasi
+
   // Daftar fitur utama
   const features = [
     {
@@ -31,12 +40,21 @@ const Features = () => {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12">
+    <div className="max-w-5xl mx-auto px-6  bg-peach-50">
+      {/* Tombol Kembali */}
+      <button
+        onClick={() => navigate(-1)} // Navigasi ke halaman sebelumnya
+        className="flex items-center space-x-2 text-red-500 hover:text-red-700 mb-6"
+      >
+        <ArrowLeft className="w-5 h-5" />
+        <span>Kembali</span>
+      </button>
+
       {/* Header Features */}
-      <h1 className="text-4xl font-semibold text-center text-gray-800 mb-6">
+      <h1 className="text-4xl font-semibold text-center text-red-500 hover:text-red-700 mb-6">
         Fitur Unggulan di GalleryFoto
       </h1>
-      <p className="text-lg text-center text-gray-600 mb-10">
+      <p className="text-lg text-center text-black mb-10">
         Temukan berbagai fitur menarik yang membantu Anda berbagi dan menikmati
         foto dengan mudah.
       </p>
@@ -50,10 +68,10 @@ const Features = () => {
           >
             <div>{feature.icon}</div>
             <div>
-              <h2 className="text-2xl font-semibold text-gray-800">
+              <h2 className="text-2xl font-semibold text-black">
                 {feature.title}
               </h2>
-              <p className="text-gray-600">{feature.description}</p>
+              <p className="text-black">{feature.description}</p>
             </div>
           </div>
         ))}

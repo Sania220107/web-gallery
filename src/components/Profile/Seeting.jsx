@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FaCog } from "react-icons/fa";
-import { MdLock } from "react-icons/md";
+import { FaCog, FaTrash } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import { IoArrowBack } from "react-icons/io5";
 
 const Seeting = () => {
   const navigate = useNavigate();
@@ -13,42 +13,54 @@ const Seeting = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-red-100">
+      {/* Tombol Kembali */}
+      <div className="p-4">
+        <button
+          onClick={() => navigate("/myProfile")}
+          className="flex items-center gap-2 text-red-700 hover:text-red-900 font-semibold"
+        >
+          <IoArrowBack size={20} />
+          <span>Kembali</span>
+        </button>
+      </div>
+
       <div className="max-w-lg mx-auto p-6">
-        <h2 className="text-3xl font-semibold mb-6 text-center text-gray-800">
-          Settings
+        <h2 className="text-3xl font-semibold mb-6 text-center text-red-800">
+          Pengaturan
         </h2>
 
         <div className="space-y-4">
-
-          {/* Ubah Profil Button */}
-          <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+          {/* Ubah Kata Sandi */}
+          <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
             <button
-              onClick={() => navigate("edit-profile")}
-              className="flex items-center space-x-3 w-full text-left text-gray-700 hover:text-green-600"
+              onClick={() => navigate("edit-password")}
+              className="flex items-center gap-3 w-full text-left text-red-700 hover:text-red-900"
             >
               <FaCog size={20} />
-              <span className="text-lg">Ubah Profil</span>
+              <span className="text-lg">Ubah Kata Sandi</span>
             </button>
           </div>
 
-          {/* Logout Button */}
-          <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+          {/* Logout */}
+          <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
             <button
               onClick={handleLogout}
-              className="flex items-center space-x-3 w-full text-left text-gray-700 hover:text-red-600"
+              className="flex items-center gap-3 w-full text-left text-red-700 hover:text-red-900"
             >
               <FiLogOut size={20} />
               <span className="text-lg">Logout</span>
             </button>
           </div>
-          <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+
+          {/* Sampah */}
+          <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
             <button
-              onClick={() => navigate("/myProfile")}
-              className="flex items-center space-x-3 w-full text-left text-gray-700 hover:text-red-600"
+              onClick={() => navigate("/trash")}
+              className="flex items-center gap-3 w-full text-left text-red-700 hover:text-red-900"
             >
-              <FiLogOut size={20} />
-              <span className="text-lg">Kembali</span>
+              <FaTrash size={20} />
+              <span className="text-lg">Sampah</span>
             </button>
           </div>
         </div>

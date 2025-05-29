@@ -251,25 +251,28 @@ const CardGrid = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="mx-auto max-w-6xl text-center px-4 mt-16">
-        <h1 className="text-5xl font-semibold text-black mb-5">
-          Discover the world’s top designers
+        <h1
+          className="text-5xl font-bold text-white mb-5"
+        >
+          Galeri Eksplorasi Visual Tanpa Batas
         </h1>
-        <p className="text-xl text-gray-800 mb-12">
-          Explore work from the most talented and accomplished designers ready
-          to take on your next project
+        <p className="text-xl text-white mb-12">
+          Temukan keindahan dunia lewat lensa para kreator terbaik. GalleryFoto
+          hadir sebagai ruang ekspresi visual yang menginspirasi dan menggugah
+          rasa.
         </p>
 
         {/* Search Bar */}
         <div className="flex justify-center gap-4 mb-8">
           <input
             type="text"
-            placeholder="What are you looking for?"
-            className="w-96 p-4 text-lg border border-gray-300 bg-white text-black rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 shadow-lg"
+            placeholder="Cari kreator berbakat di sini..."
+            className="w-96 p-4 text-lg border border-gray-300 bg-white text-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 shadow"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           <button
-            className="p-4 text-lg bg-gray-600 text-white rounded-md hover:bg-gray-500 transition duration-300 shadow-lg"
+            className="p-4 text-lg bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 shadow"
             onClick={handleSearch}
           >
             🔍
@@ -278,7 +281,7 @@ const CardGrid = () => {
         <div className="mt-4">
           {searchResults.length > 0 && (
             <div className="bg-white p-4 shadow rounded-md">
-              <h2 className="text-lg font-semibold mb-2">Search Results:</h2>
+              <h2 className="text-lg font-semibold mb-2">Hasil</h2>
               <ul>
                 {searchResults.map((user, index) => (
                   <li key={index} className="p-2 border-b">
@@ -330,13 +333,13 @@ const CardGrid = () => {
                     : "http://localhost:5000/uploads/default-photo.jpg"
                 }
                 alt={card.JudulFoto}
-                className="w-full h-56 object-cover rounded-lg mb-4"
+                className="w-full h-56 object-cover rounded-lg mb-4 text-black"
               />
 
               <div className="p-4">
-                <h3 className="text-sm">{card.JudulFoto}</h3>
+                <h3 className="text-sm text-black flex items-start">{card.JudulFoto}</h3>
                 <p className="text-gray-500 flex items-start">
-                  Uploaded on:{" "}
+                  Diunggah pada:{" "}
                   {card.TanggalUnggah !== "Invalid date"
                     ? card.TanggalUnggah
                     : "Unknown date"}
@@ -383,57 +386,67 @@ const CardGrid = () => {
           <div className="fixed inset-0 bg-white bg-opacity-90 backdrop-blur-sm flex items-center justify-center ">
             {/* Latar belakang dengan logo */}
             <div
-              className="absolute inset-0 bg-cover bg-center opacity-20 bg-gradient-to-r from-gray-400 via-white to-gray-600"
-              
+              style={{ backgroundColor: "#FFEEE0", color: "#3E3E3E" }}
+              className="absolute inset-0 bg-cover bg-center opacity-20 "
             ></div>
 
             {/* Konten Modal */}
             <div className="bg-white rounded-lg w-11/12 md:w-1/2 lg:w-1/3 p-6 shadow-xl relative z-10">
-              <h2 className="text-xl font-semibold mb-4 flex justify-center items-center">
-                komentar
-              </h2>
-              <div className="max-h-64 overflow-y-auto mb-4">
-                {comments.map((comment, index) => (
-                  <div key={index} className="mb-4">
-                    {/* Display User Profile and Username */}
-                    <div className="flex items-center space-x-2 mb-2">
-                      <img
-                        src={
-                          comment.User?.Profile
-                            ? `http://localhost:5000/uploads/${comment.User.Profile}`
-                            : "http://localhost:5000/uploads/default-avatar.png"
-                        }
-                        alt="Profile"
-                        className="w-8 h-8 rounded-full object-cover"
-                      />
-                      <p>{comment.User.Username}</p>
-                    </div>
-                    {/* Display Comment Content */}
-                    <p className="text-gray-500 flex items-start">{comment.IsiKomentar}</p>
-                  </div>
-                ))}
-              </div>
-              <textarea
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                className="w-full p-2 border rounded-full border-gray-300 px-2"
-                placeholder="Add a comment..."
-              />
-              <div className="flex justify-end">
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="mr-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
-                >
-                  Close
-                </button>
-                <button
-                  onClick={handleAddComment}
-                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                >
-                  Post
-                </button>
-              </div>
-            </div>
+  <h2 className="text-xl font-semibold mb-4 text-[#ff6b6b] flex justify-center items-center">
+    Komentar
+  </h2>
+  <div className="max-h-64 overflow-y-auto mb-4">
+    {comments.map((comment, index) => (
+      <div key={index} className="mb-4">
+        {/* Display User Profile and Username */}
+        <div className="flex items-center space-x-2 mb-2">
+          <img
+            src={
+              comment.User?.Profile
+                ? `http://localhost:5000/uploads/${comment.User.Profile}`
+                : "http://localhost:5000/uploads/default-avatar.png"
+            }
+            alt="Profile"
+            className="w-8 h-8 rounded-full object-cover"
+          />
+          <p className="font-semibold text-[#4b0b0b]">
+            {comment.User.Username}
+          </p>
+        </div>
+        {/* Display Comment Content */}
+        <p className="text-gray-600 flex items-start">
+          {comment.IsiKomentar}
+        </p>
+        <p className="text-gray-400 text-sm flex items-start mt-2">
+          {comment.TanggalKomentar}
+        </p>
+      </div>
+    ))}
+  </div>
+
+  <textarea
+    value={newComment}
+    onChange={(e) => setNewComment(e.target.value)}
+    className="w-full p-2 border border-[#ff6b6b] rounded-full focus:outline-none focus:ring-2 focus:ring-[#ff6b6b] text-black"
+    placeholder="Tambahkan Komentar"
+  />
+
+  <div className="flex justify-end space-x-3 mt-4">
+    <button
+      onClick={() => setIsModalOpen(false)}
+      className="flex items-center py-2 px-5 rounded-full bg-[#ffe3e3] text-[#ff6b6b] font-medium hover:bg-[#ffc2c2] transition duration-200 shadow-sm"
+    >
+      Tutup
+    </button>
+    <button
+      onClick={handleAddComment}
+      className="flex items-center py-2 px-5 rounded-full bg-[#ff6b6b] text-white font-medium hover:bg-[#ff5252] transition duration-200 shadow-sm"
+    >
+      Kirim
+    </button>
+  </div>
+</div>
+
           </div>
         )}
       </div>

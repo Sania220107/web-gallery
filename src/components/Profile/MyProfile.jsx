@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaCog, FaHeart, FaTrash, FaPlus, FaEllipsisV, FaComment } from "react-icons/fa";
-import { FiLogOut, FiMoreVertical } from "react-icons/fi";
+import { FiLogIn,FiLogOut, FiMoreVertical } from "react-icons/fi";
+import { HiOutlineLogin } from "react-icons/hi";
 import { MdLock } from "react-icons/md";
 import { IoMdSend, IoMdMore, IoMdAlbums } from "react-icons/io";
 import axios from "axios";
@@ -28,8 +29,17 @@ const MyProfile = () => {
   const [showModal, setShowModal] = useState(false); // Untuk menampilkan modal
   const [editedComment, setEditedComment] = useState("");
   const [isEditing, setIsEditing] = useState(null);
+  const [commentDropdownOpen, setCommentDropdownOpen] = useState(null);
+  const [deletePosition, setDeletePosition] = useState({ top: 0, left: 0 });
+
+
 
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    navigate("/");
+  };
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -52,8 +62,10 @@ const MyProfile = () => {
         const profileData = await profileResponse.json();
         if (profileData.success) setUserData(profileData.data);
 
+        
+
         const likeResponse = await fetch(
-          "http://localhost:5000/like/users/count",
+          "http://localhost:5000/like/foto/semua/count",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -136,6 +148,16 @@ const MyProfile = () => {
     }
   };
 
+  const handleClickDelete = (fotoID, event) => {
+    const rect = event.target.getBoundingClientRect();
+    setPhotoToDelete(fotoID);
+    setDeletePosition({
+      top: rect.bottom + window.scrollY,
+      left: rect.left + window.scrollX,
+    });
+  };
+
+
 
   const handleAddComment = async () => {
     if (!IsiKomentar) return;
@@ -172,6 +194,60 @@ const MyProfile = () => {
   };
 
   console.log("Selected: ",selectedPhoto)
+
+  const handleDeleteComment = async (KomentarID) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      await fetch(`http://localhost:5000/komentar/${KomentarID}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      // Perbarui daftar komentar
+      setSelectedPhoto((prev) => ({
+        ...prev,
+        komentar: prev.komentar.filter(
+          (comment) => comment.KomentarID !== KomentarID
+        ),
+      }));
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
+
+  const handleEditComment = async (KomentarID) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await fetch(
+        `http://localhost:5000/komentar/${KomentarID}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ IsiKomentar: editedComment }),
+        }
+      );
+
+      const data = await response.json();
+      if (data.success) {
+        setSelectedPhoto((prev) => ({
+          ...prev,
+          komentar: prev.komentar.map((comment) =>
+            comment.KomentarID === KomentarID
+              ? { ...comment, IsiKomentar: editedComment }
+              : comment
+          ),
+        }));
+        setIsEditing(null);
+        setEditedComment("");
+      }
+    } catch (error) {
+      console.error("Error updating comment:", error);
+    }
+  };
+
 
   const fetchCommentsByPhotoID = async (fotoID) => {
     try {
@@ -236,15 +312,17 @@ const MyProfile = () => {
  
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="min-h-screen flex bg-red-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-gradient-to-b from-gray-300 to-white shadow-lg p-4">
-        <h2 className="text-xl font-bold mb-6">Dashboard</h2>
+      <aside className="w-64 h-screen text-white bg-gradient-to-b from-[#4b0b0b] via-[#701c1c] to-[#ff6b6b] dark:from-[#1e293b] dark:via-[#0f172a] dark:to-[#020617] p-4 shadow-lg">
+        <h2 className="text-xl font-bold mb-6 text-white dark:text-white">
+          Dashboard
+        </h2>
         <ul>
           <li className="mb-4">
             <button
               onClick={() => navigate("/album")}
-              className="flex items-center space-x-2 text-gray-700"
+              className="flex items-center space-x-2 text-white dark:text-white hover:text-[#ff6b6b] dark:hover:text-sky-300 transition"
             >
               <IoMdAlbums /> <span>Album</span>
             </button>
@@ -252,129 +330,122 @@ const MyProfile = () => {
           <li className="mb-4">
             <button
               onClick={() => navigate("/settings")}
-              className="flex items-center space-x-2 text-gray-700"
+              className="flex items-center space-x-2 text-white dark:text-white hover:text-[#ff6b6b] dark:hover:text-sky-300 transition"
             >
-              <FaCog /> <span>Settings</span>
-            </button>
-          </li>
-          <li className="mb-4">
-            <button
-              onClick={() => navigate("/edit-password")}
-              className="flex items-center space-x-2 text-gray-700"
-            >
-              <MdLock /> <span>Edit Password</span>
+              <FaCog /> <span>Pengaturan</span>
             </button>
           </li>
           <li className="mb-4">
             <button
               onClick={() => navigate("/")}
-              className="flex items-center space-x-2 text-gray-700"
+              className="flex items-center space-x-2 text-white dark:text-white hover:text-[#ff6b6b] dark:hover:text-sky-300 transition"
             >
-              <FiLogOut /> <span>Logout</span>
+              <HiOutlineLogin /> <span>Kembali ke Home</span>
+            </button>
+          </li>
+          <li className="mb-4">
+            <button
+              onClick={handleLogout}
+              className="flex items-center space-x-2 text-red-500 hover:text-red-400 transition"
+            >
+              <FiLogOut />
+              <span>keluar akun</span>
             </button>
           </li>
         </ul>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
-        <div className="bg-white p-6 rounded-lg shadow-md flex items-center">
+      <main className="flex-1 p-4 sm:p-8 max-w-7xl mx-auto">
+        <div className="bg-white dark:from-sky-800 dark:via-sky-900 dark:to-gray-900 p-6 rounded-lg shadow-md flex flex-wrap items-center transition-all duration-300">
           <img
             src={`http://localhost:5000/uploads/${userData.Profile}`}
             alt="Profile"
-            className="w-24 h-24 rounded-full object-cover border"
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-pink-300 dark:border-sky-500"
             onError={(e) => (e.target.src = "/default-avatar.png")}
           />
           <div className="ml-4">
-            <h2 className="text-2xl font-bold">{userData.Username}</h2>
-            <p className="text-gray-500">{userData.Email}</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white">
+              {userData.Username}
+            </h2>
+            <p className="text-gray-500 dark:text-gray-300">{userData.Email}</p>
           </div>
           <div className="ml-auto flex items-center space-x-4">
-            <FaHeart className="text-red-500" />
-            <span className="text-lg font-semibold">{likeCount} Likes</span>
+            <FaHeart className="text-red-500 dark:text-red-400" />
+            <span className="text-lg font-semibold text-gray-700 dark:text-white">
+              {likeCount} Suka
+            </span>
           </div>
         </div>
 
-        <h3 className="text-xl font-bold mt-6">Photos</h3>
+        <h3 className="text-lg sm:text-xl font-bold mt-6">Foto</h3>
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
+          className="bg-red-800 text-white px-4 py-2 rounded mt-2"
           onClick={() => navigate("/create-photo")}
         >
-          + Upload Foto
+          + Unggah Foto
         </button>
 
-        <div className="grid grid-cols-4 gap-4 mt-4">
+        {/* Grid Photo Responsive */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
           {photos.map((photo) => (
             <div
               key={photo.FotoID}
-              className="relative group w-64 h-auto shadow-lg rounded-lg"
+              className="relative group w-full sm:w-64 h-auto shadow-lg rounded-lg"
               onMouseEnter={() => fetchLikeAndCommentCount(photo.FotoID)}
               onClick={() => openPhotoModal(photo.FotoID)}
-              // Panggil API saat hover
             >
-              <div>
-                <img
-                  src={`http://localhost:5000/uploads/${
-                    photo.LokasiFile
-                  }?${new Date().getTime()}`}
-                  alt="Photo"
-                  className="w-full h-48 object-cover rounded-lg"
-                />
+              <img
+                src={`http://localhost:5000/uploads/${
+                  photo.LokasiFile
+                }?${new Date().getTime()}`}
+                alt="Photo"
+                className="w-full h-48 object-cover rounded-lg"
+              />
 
-                {/* Overlay dengan foto sebagai background saat hover */}
-                <div
-                  className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    backgroundImage: `url(http://localhost:5000/uploads/${
-                      photo.LokasiFile
-                    }?${new Date().getTime()})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
-                >
-                  <div className="flex space-x-4">
-                    <p className="flex items-center">
-                      <FaHeart className="mr-2" />{" "}
-                      {likesPerPhoto[photo.FotoID] || 0}
-                    </p>
-                    <p className="flex items-center">
-                      <FaComment className="mr-2" />{" "}
-                      {commentsPerPhoto[photo.FotoID] || 0}
-                    </p>
-                  </div>
+              {/* Overlay saat hover */}
+              <div className="absolute top-0 left-0 w-full h-full  bg-opacity-40 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="flex space-x-4">
+                  <p className="flex items-center">
+                    <FaHeart className="mr-2" />{" "}
+                    {likesPerPhoto[photo.FotoID] || 0}
+                  </p>
+                  <p className="flex items-center">
+                    <FaComment className="mr-2" />{" "}
+                    {commentsPerPhoto[photo.FotoID] || 0}
+                  </p>
                 </div>
-
-                {/* Dropdown Button */}
-                <button
-                  onClick={(event) => {
-                    event.stopPropagation(); // Mencegah event klik merambat ke parent
-                    setDropdownOpen(
-                      dropdownOpen === photo.FotoID ? null : photo.FotoID
-                    );
-                  }}
-                  className="absolute top-2 right-2 bg-gray-700 text-white p-2 rounded-full hover:bg-gray-600"
-                >
-                  <FaEllipsisV />
-                </button>
-
-                {dropdownOpen === photo.FotoID && (
-                  <div className="absolute top-10 right-0 w-32 bg-white rounded-lg shadow-lg">
-                    <button
-                      onClick={() => navigate(`/edit-photo/${photo.FotoID}`)}
-                      className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                    >
-                      Edit
-                    </button>
-
-                    <button
-                      onClick={() => setPhotoToDelete(photo.FotoID)}
-                      className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
-                    >
-                      Hapus
-                    </button>
-                  </div>
-                )}
               </div>
+
+              {/* Dropdown Button */}
+              <button
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setDropdownOpen(
+                    dropdownOpen === photo.FotoID ? null : photo.FotoID
+                  );
+                }}
+                className="absolute top-2 right-2 bg-gray-700 text-white p-2 rounded-full hover:bg-gray-600"
+              >
+                <FaEllipsisV />
+              </button>
+
+              {dropdownOpen === photo.FotoID && (
+                <div className="absolute top-10 right-0 w-32 bg-white rounded-lg shadow-lg">
+                  <button
+                    onClick={() => navigate(`/edit-photo/${photo.FotoID}`)}
+                    className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={(e) => handleClickDelete(photo.FotoID, e)}
+                    className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
+                  >
+                    Hapus
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -382,32 +453,38 @@ const MyProfile = () => {
 
       {/* Modal for deleting photo */}
       {photoToDelete && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold">
-              Are you sure you want to delete this photo?
+        <div
+          className="absolute z-50"
+          style={{ top: deletePosition.top + 8, left: deletePosition.left }}
+        >
+          <div className="relative bg-white text-gray-800 p-4 rounded-lg shadow-xl w-72">
+            {/* Segitiga runcing atas */}
+            <div className="absolute -top-2 left-4 w-0 h-0 border-l-8 border-r-8 border-b-8 border-l-transparent border-r-transparent border-b-white"></div>
+
+            <h2 className="text-base font-semibold mb-4">
+              Kamu yakin mau hapus foto ini?
             </h2>
-            <div className="mt-4">
+            <div className="flex justify-end gap-2">
               <button
                 onClick={handleDeletePhoto}
-                className="bg-red-500 text-white px-4 py-2 rounded mr-4"
+                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
               >
-                Yes, Delete
+                Ya, Hapus
               </button>
               <button
                 onClick={() => setPhotoToDelete(null)}
-                className="bg-gray-300 text-gray-800 px-4 py-2 rounded"
+                className="bg-gray-300 text-gray-800 px-3 py-1 rounded hover:bg-gray-400"
               >
-                Cancel
+                Batal
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {showModal && selectedPhoto && (
+      {showModal && selectedPhoto && !photoToDelete && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+          className="fixed inset-0 flex items-center justify-center  bg-opacity-50"
           style={{
             backgroundImage: `url(http://localhost:5000/uploads/${selectedPhoto.ProfileBackground})`,
             backgroundSize: "cover",
@@ -426,7 +503,7 @@ const MyProfile = () => {
               </div>
 
               {/* Info & Comments Section */}
-              <div className="md:ml-6 flex-1">
+              <div className="bg-white w-full max-w-2xl p-6 rounded-2xl shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-800">
                   {selectedPhoto.User?.Username || "Pengguna Tidak Diketahui"}
                 </h2>
@@ -445,36 +522,86 @@ const MyProfile = () => {
                           key={index}
                           className="flex items-start space-x-3 p-3 bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-sm"
                         >
-                          {/* Foto Profil Pengomentar */}
                           <img
                             src={`http://localhost:5000/uploads/${comment.User?.Profile}`}
                             alt="Profile"
                             className="w-10 h-10 object-cover rounded-full"
                           />
-
-                          {/* Isi Komentar */}
                           <div className="flex-1">
                             <p className="text-sm font-semibold text-gray-800">
                               {comment.User?.Username ||
                                 "Pengguna Tidak Diketahui"}
                             </p>
-                            <p className="text-sm text-gray-700">
-                              {comment.IsiKomentar}
-                            </p>
+
+                            {isEditing === comment.KomentarID ? (
+                              <input
+                                type="text"
+                                value={editedComment}
+                                onChange={(e) =>
+                                  setEditedComment(e.target.value)
+                                }
+                                className="border rounded p-1 w-full"
+                              />
+                            ) : (
+                              <>
+                                <p className="text-sm text-gray-700">
+                                  {comment.IsiKomentar}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                  {comment.TanggalKomentar}
+                                </p>{" "}
+                                {/* Tampilkan tanggal */}
+                              </>
+                            )}
                           </div>
 
-                          {/* Icon Titik Tiga untuk Edit dan Hapus */}
                           <div className="relative">
                             <button
                               onClick={() =>
-                                setDropdownOpen(
-                                  dropdownOpen === comment.KomentarID
+                                setCommentDropdownOpen(
+                                  comment.KomentarID === commentDropdownOpen
+                                    ? null
+                                    : comment.KomentarID
                                 )
                               }
-                              className="text-gray-600 hover:text-gray-800"
                             >
-                              <FiMoreVertical className="w-6 h-6" />
+                              <FaEllipsisV />
                             </button>
+
+                            {commentDropdownOpen === comment.KomentarID && (
+                              <div className="absolute right-0 bg-white border rounded shadow-md">
+                                {isEditing === comment.KomentarID ? (
+                                  <button
+                                    onClick={() =>
+                                      handleEditComment(comment.KomentarID)
+                                    }
+                                    className="block px-4 py-2 text-blue-600 hover:bg-gray-100"
+                                  >
+                                    Simpan
+                                  </button>
+                                ) : (
+                                  <>
+                                    <button
+                                      onClick={() => {
+                                        setIsEditing(comment.KomentarID);
+                                        setEditedComment(comment.IsiKomentar);
+                                      }}
+                                      className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                    >
+                                      Edit
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                        handleDeleteComment(comment.KomentarID)
+                                      }
+                                      className="block px-4 py-2 text-red-600 hover:bg-gray-100"
+                                    >
+                                      Hapus
+                                    </button>
+                                  </>
+                                )}
+                              </div>
+                            )}
                           </div>
                         </div>
                       ))}

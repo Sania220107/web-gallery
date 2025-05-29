@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { IoMdCloudUpload } from "react-icons/io"; // Menggunakan ikon upload dari react-icons
+import { IoMdCloudUpload } from "react-icons/io";
 
 const EditFoto = () => {
-  const { id } = useParams(); // Get the FotoID from the URL
+  const { id } = useParams();
   const navigate = useNavigate();
   const [photoData, setPhotoData] = useState({
     JudulFoto: "",
     DeskripsiFoto: "",
-    LokasiFile: "",
+    LokasiFile: "", // Menyimpan path file lama
   });
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState(null); // State untuk file baru
 
-  // Fetch photo data when the component is mounted
+  // Fetch photo data ketika komponen dimuat
   useEffect(() => {
     const fetchPhoto = async () => {
       try {
@@ -45,7 +45,7 @@ const EditFoto = () => {
     formData.append("JudulFoto", photoData.JudulFoto);
     formData.append("DeskripsiFoto", photoData.DeskripsiFoto);
 
-    // Jika file baru diupload, tambahkan file ke formData
+    // Hanya tambahkan file jika ada yang diunggah
     if (file) {
       formData.append("LokasiFile", file);
     }
@@ -59,10 +59,11 @@ const EditFoto = () => {
         },
         body: formData,
       });
+
       const data = await response.json();
 
       if (data.success) {
-        navigate(`/myProfile`); // Redirect after update
+        navigate(`/myProfile`);
       } else {
         console.error("Failed to update photo");
       }
@@ -72,13 +73,14 @@ const EditFoto = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-red-800">
       <div className="w-full max-w-lg p-6 bg-white rounded-3xl shadow-lg">
-        <h2 className="text-2xl font-bold mb-6 text-center">Edit Photo</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Edit Foto</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Judul Foto */}
           <div>
             <label htmlFor="judul" className="block text-sm font-medium">
-              Title
+              Judul
             </label>
             <input
               type="text"
@@ -92,9 +94,10 @@ const EditFoto = () => {
             />
           </div>
 
+          {/* Deskripsi Foto */}
           <div>
             <label htmlFor="deskripsi" className="block text-sm font-medium">
-              Description
+              Deskripsi
             </label>
             <textarea
               id="deskripsi"
@@ -107,46 +110,36 @@ const EditFoto = () => {
             ></textarea>
           </div>
 
+          {/* Upload File */}
           <div>
+            <label className="block text-sm font-medium">Unggah Foto Baru</label>
             <input
               type="file"
               id="LokasiFile"
-              value={photoData.LokasiFile}
-              onChange={(e) =>
-                setPhotoData({ ...photoData, LokasiFile: e.target.value })
-              }
+              onChange={(e) => setFile(e.target.files[0])} // Simpan file ke state
               className="border px-4 py-2 rounded-lg w-full focus:ring-2 focus:ring-blue-500"
-              required
             />
-
-            {/* <label htmlFor="file" className="block text-sm font-medium">
-              Upload New File (optional)
-            </label> */}
-            <div className="flex items-center space-x-3">
-              {/* <input
-                htmlFor="file"
-                value={photoData.LokasiFile}
-                className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-lg inline-flex items-center space-x-2"
-              >
-                <IoMdCloudUpload className="text-xl" id="LokasiFile"/>
-                <span>Upload Photo</span>
-              </input> */}
-            </div>
+            {photoData.LokasiFile && (
+              <p className="text-sm text-gray-500 mt-2">
+                Current file: {photoData.LokasiFile}
+              </p>
+            )}
           </div>
 
+          {/* Tombol Aksi */}
           <div className="mt-6 flex justify-between space-x-4">
             <button
               type="button"
               onClick={() => navigate("/myProfile")}
               className="bg-gray-300 text-gray-800 px-6 py-3 rounded-lg"
             >
-              Cancel
+              Batal
             </button>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-6 py-3 rounded-lg flex items-center space-x-2"
+              className="bg-red-800 text-white px-6 py-3 rounded-lg flex items-center space-x-2"
             >
-              <span>Update Photo</span>
+              <span>Simpan</span>
             </button>
           </div>
         </form>

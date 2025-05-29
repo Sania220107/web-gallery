@@ -45,10 +45,10 @@ const CreateAlbum = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-red-200 via-white to-red-300">
       <div className="bg-white shadow-lg rounded-xl p-6 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-          Create New Album
+        <h2 className="text-2xl font-bold text-center mb-6 text-red-800">
+          Buat Album Baru
         </h2>
 
         {success ? (
@@ -59,38 +59,38 @@ const CreateAlbum = () => {
             className="flex flex-col items-center"
           >
             <FaCheckCircle size={50} className="text-green-500 mb-2" />
-            <p className="text-lg text-gray-700">Album successfully created!</p>
+            <p className="text-lg text-gray-700">Berhasil membuat album baru</p>
             <button
               onClick={() => navigate("/myProfile")}
-              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition"
+              className="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition"
             >
-              Back to Profile
+              Kembali ke Profile
             </button>
           </motion.div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-gray-600">
-                Album Name
+              <label className="block text-sm font-semibold text-red-800">
+                Nama Album
               </label>
               <input
                 type="text"
                 value={NamaAlbum}
                 onChange={(e) => setNamaAlbum(e.target.value)}
                 required
-                className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-200"
+                className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-red-200"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-600">
-                Description
+              <label className="block text-sm font-semibold text-red-800">
+                Deskripsi
               </label>
               <textarea
                 value={Deskripsi}
                 onChange={(e) => setDeskripsi(e.target.value)}
                 required
-                className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-200"
+                className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-red-200"
               />
             </div>
 
@@ -100,13 +100,13 @@ const CreateAlbum = () => {
                 onClick={() => navigate("/myProfile")}
                 className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition"
               >
-                Cancel
+                Batal
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
               >
-                Create Album
+                Kirim
               </button>
             </div>
           </form>

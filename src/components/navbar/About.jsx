@@ -1,73 +1,52 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 const About = () => {
+  const navigate = useNavigate();
+
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
+    <div className="max-w-6xl mx-auto px-6 py-12 bg-peach-50 rounded-xl shadow-md">
+      {/* Tombol Kembali */}
+      <button
+        onClick={() => navigate(-1)}
+        className="flex items-center space-x-2 text-red-500 hover:text-red-700  mb-6"
+      >
+        <ArrowLeft className="w-5 h-5" />
+        <span>Kembali</span>
+      </button>
+
       {/* Header About */}
-      <h1 className="text-4xl font-semibold text-center text-gray-800 mb-6">
+      <h1 className="text-4xl font-bold text-center text-red-500 hover:text-red-700 mb-6">
         Tentang GalleryFoto
       </h1>
-      <p className="text-lg text-center text-gray-600 mb-10">
-        GalleryFoto adalah platform berbagi foto yang memungkinkan para
-        desainer, fotografer, dan kreator untuk berbagi karya mereka dengan
-        dunia. Kami bertujuan untuk memfasilitasi kreativitas dan kolaborasi
-        dalam komunitas visual.
+      <p className="text-lg text-center  mb-10">
+        GalleryFoto adalah ruang inspiratif untuk para desainer, fotografer, dan
+        kreator visual. Kami hadir untuk memudahkan Anda membagikan karya
+        terbaik, menemukan inspirasi, dan terhubung dengan sesama kreator.
       </p>
 
       {/* Misi & Visi */}
-      <section className="mb-16">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-4">Misi Kami</h2>
-        <p className="text-lg text-gray-600 mb-8">
-          Kami berkomitmen untuk memberikan platform yang memungkinkan para
-          pengguna untuk berbagi, mengeksplorasi, dan berkolaborasi dengan
-          kreator foto dan desain terbaik. Kami percaya bahwa kreativitas tidak
-          memiliki batasan, dan GalleryFoto hadir untuk mendukung proses
-          tersebut.
+      <section className="mb-16 bg-white p-6 rounded-xl shadow-sm">
+        <h2 className="text-3xl font-semibold text-red-500 hover:text-red-700 mb-4">
+          Misi Kami
+        </h2>
+        <p className="text-lg  mb-8">
+          Kami bertekad untuk menciptakan platform yang mendukung setiap
+          individu dalam mengekspresikan kreativitas mereka melalui visual.
+          GalleryFoto menjadi jembatan antara karya indah dan audiens yang
+          tepat.
         </p>
 
-        <h2 className="text-3xl font-semibold text-gray-800 mb-4">Visi Kami</h2>
-        <p className="text-lg text-gray-600">
-          Visi kami adalah menjadi komunitas terbesar yang menghubungkan
-          fotografer, desainer, dan kreator dari berbagai bidang, menciptakan
-          ruang bagi mereka untuk saling berbagi ide dan proyek.
+        <h2 className="text-3xl font-semibold text-red-500 hover:text-red-700 mb-4">
+          Visi Kami
+        </h2>
+        <p className="text-lg ">
+          Menjadi rumah bagi komunitas visual terbesar di Indonesia — tempat
+          setiap ide, warna, dan momen bisa berbicara. Kami ingin tumbuh bersama
+          kreator dari berbagai latar belakang untuk mewarnai dunia digital
+          dengan keindahan karya foto.
         </p>
-      </section>
-
-      {/* Tim Kami */}
-      <section>
-        <h2 className="text-3xl font-semibold text-gray-800 mb-8">Tim Kami</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Anggota Tim */}
-          <div className="flex flex-col items-center text-center bg-gray-100 p-6 rounded-lg shadow-md">
-            <img
-              src="https://via.placeholder.com/150"
-              alt="Anggota Tim 1"
-              className="w-32 h-32 rounded-full mb-4"
-            />
-            <h3 className="text-xl font-semibold text-gray-800">John Doe</h3>
-            <p className="text-gray-600">CEO & Founder</p>
-          </div>
-
-          <div className="flex flex-col items-center text-center bg-gray-100 p-6 rounded-lg shadow-md">
-            <img
-              src="https://via.placeholder.com/150"
-              alt="Anggota Tim 2"
-              className="w-32 h-32 rounded-full mb-4"
-            />
-            <h3 className="text-xl font-semibold text-gray-800">Jane Smith</h3>
-            <p className="text-gray-600">Lead Designer</p>
-          </div>
-
-          <div className="flex flex-col items-center text-center bg-gray-100 p-6 rounded-lg shadow-md">
-            <img
-              src="https://via.placeholder.com/150"
-              alt="Anggota Tim 3"
-              className="w-32 h-32 rounded-full mb-4"
-            />
-            <h3 className="text-xl font-semibold text-gray-800">David Brown</h3>
-            <p className="text-gray-600">Technical Director</p>
-          </div>
-        </div>
       </section>
     </div>
   );

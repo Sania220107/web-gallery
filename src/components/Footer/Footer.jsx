@@ -1,101 +1,115 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Twitter } from "lucide-react"; // Ikon sosial media dari lucide-react
-import Logo from "../../assets/Logo.jpg"
+import { Facebook, Instagram, Twitter } from "lucide-react";
+import Logo from "../../assets/LogoGaleriFoto.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 text-black py-10 px-8 mt-16 shadow-inner">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Bagian 1: Tentang Website */}
+    <footer className="bg-gradient-to-t from-[#ff6b6b] via-[#701c1c] to-[#4b0b0b] text-white pt-12 pb-8 px-6 mt-16 border-t border-[#ffffff]/10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+        {/* Logo & Deskripsi */}
         <div>
-          <h3 className="w-16 h-16  font-semibold mb-3"><img src={Logo} alt="" /></h3>
-          <p className="text-gray-700 text-sm">
-            GalleryFoto adalah platform untuk berbagi dan menemukan foto dari
-            berbagai pengguna yang mengunggah foto.
+          <img
+            src={Logo}
+            alt="GalleryFoto Logo"
+            className="w-20 h-20 object-cover mb-4 rounded-full shadow-md"
+          />
+          <p className="text-sm text-gray-300 leading-relaxed">
+            <strong>GalleryFoto</strong> adalah tempat berbagi karya foto dari
+            pengguna seluruh Indonesia.
           </p>
         </div>
 
-        {/* Bagian 2: Navigasi */}
+        {/* Navigasi */}
         <div>
-          <h3 className="text-xl font-semibold mb-3">Navigasi</h3>
-          <ul className="text-gray-700 space-y-2">
+          <h3 className="text-base font-semibold mb-4 text-[#ff6b6b]">
+            Navigasi
+          </h3>
+          <ul className="space-y-2 text-sm text-gray-300">
             <li>
-              <Link to="/features" className="hover:text-blue-500">
-                Features
+              <Link to="/features" className="hover:text-[#ff6b6b] transition">
+                Fitur
               </Link>
             </li>
             <li>
-              <Link to="/help" className="hover:text-blue-500">
-                Help Center
+              <Link to="/help" className="hover:text-[#ff6b6b] transition">
+                Pusat Bantuan
               </Link>
             </li>
             <li>
-              <Link to="/about" className="hover:text-blue-500">
-                About
+              <Link to="/about" className="hover:text-[#ff6b6b] transition">
+                Tentang
               </Link>
             </li>
             <li>
-              <Link to="/privacy-policy" className="hover:text-blue-500">
-                Privacy Policy
+              <Link
+                to="/privacy-policy"
+                className="hover:text-[#ff6b6b] transition"
+              >
+                Kebijakan Privasi
               </Link>
             </li>
             <li>
-              <Link to="/terms-of-service" className="hover:text-blue-500">
-                Terms of Service
+              <Link
+                to="/terms-of-service"
+                className="hover:text-[#ff6b6b] transition"
+              >
+                Syarat & Ketentuan
               </Link>
             </li>
           </ul>
         </div>
 
-        {/* Bagian 3: Kontak */}
+        {/* Kontak */}
         <div>
-          <h3 className="text-xl font-semibold mb-3">Kontak</h3>
-          <p className="text-gray-700 text-sm">
-            Alamat: Jl. Kauman, desa Bentar, Kec. Salem Kab. Brebes Jawa Tengah Indonesia
-          </p>
-          <p className="text-gray-700 text-sm">No Telepon: +62 812-3456-7890</p>
-          <p className="text-gray-700 text-sm">Kode Pos: 52275</p>
-          <p className="text-gray-700 text-sm">
-            Email: support@galleryfoto.com
-          </p>
+          <h3 className="text-base font-semibold mb-4 text-[#ff6b6b]">
+            Kontak
+          </h3>
+          <ul className="text-sm text-gray-300 space-y-1">
+            <li>Jl. Kauman, Desa Bentar, Salem</li>
+            <li>Brebes, Jawa Tengah, 52275</li>
+            <li>+62 812-3456-7890</li>
+            <li>Email: support@galleryfoto.com</li>
+          </ul>
         </div>
 
-        {/* Bagian 4: Follow Us */}
+        {/* Sosial Media */}
         <div>
-          <h3 className="text-xl font-semibold mb-3">Follow Us</h3>
+          <h3 className="text-base font-semibold mb-4 text-[#ff6b6b]">
+            Ikuti Kami
+          </h3>
           <div className="flex space-x-4">
             <a
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-blue-600"
+              className="text-gray-300 hover:text-[#ff6b6b] transition"
             >
-              <Facebook className="w-6 h-6" />
+              <Facebook className="w-5 h-5" />
             </a>
             <a
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-pink-600"
+              className="text-gray-300 hover:text-[#ff6b6b] transition"
             >
-              <Instagram className="w-6 h-6" />
+              <Instagram className="w-5 h-5" />
             </a>
             <a
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-blue-400"
+              className="text-gray-300 hover:text-[#ff6b6b] transition"
             >
-              <Twitter className="w-6 h-6" />
+              <Twitter className="w-5 h-5" />
             </a>
           </div>
         </div>
       </div>
 
       {/* Copyright */}
-      <div className="text-center text-sm text-gray-500 mt-8">
-        &copy; 2025 GalleryFoto. All rights reserved.
+      <div className="text-center text-xs text-white mt-12">
+        &copy; {new Date().getFullYear()} GalleryFoto. All rights reserved.
       </div>
     </footer>
   );

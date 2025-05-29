@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { CheckCircle } from "lucide-react"; // Icon untuk modal sukses
+import { CheckCircle } from "lucide-react";
 
 const EditAlbum = () => {
-  const { id } = useParams(); // Pastikan sesuai dengan path di App.js
+  const { id } = useParams();
   const navigate = useNavigate();
   const [album, setAlbum] = useState({ NamaAlbum: "", Deskripsi: "" });
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false); // State untuk modal sukses
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (!id) {
@@ -23,7 +23,6 @@ const EditAlbum = () => {
           return;
         }
 
-        console.log("Mengambil data album dengan ID:", id);
         const response = await fetch(`http://localhost:5000/album/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -47,7 +46,6 @@ const EditAlbum = () => {
 
     try {
       const token = localStorage.getItem("accessToken");
-      console.log("Mengirim update untuk Album ID:", id);
 
       const response = await fetch(`http://localhost:5000/album/${id}`, {
         method: "PUT",
@@ -59,7 +57,7 @@ const EditAlbum = () => {
       });
 
       if (response.ok) {
-        setSuccess(true); // Tampilkan modal sukses
+        setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
           navigate(`/album`);
@@ -73,57 +71,74 @@ const EditAlbum = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-5 bg-white shadow-lg rounded-lg mt-10">
-      <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">
-        Edit Album
-      </h1>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-red-200 via-white to-red-300">
+      <div className="max-w-lg w-full p-5 bg-white shadow-lg rounded-lg">
+        <h1 className="text-2xl font-bold text-center text-red-800 mb-4">
+          Edit Album
+        </h1>
 
-      {error && <p className="text-red-500 text-center">{error}</p>}
+        {error && <p className="text-red-500 text-center">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-gray-700 font-semibold">
-            Nama Album
-          </label>
-          <input
-            type="text"
-            name="NamaAlbum"
-            value={album.NamaAlbum}
-            onChange={(e) => setAlbum({ ...album, NamaAlbum: e.target.value })}
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-gray-700 font-semibold">Deskripsi</label>
-          <textarea
-            name="Deskripsi"
-            value={album.Deskripsi}
-            onChange={(e) => setAlbum({ ...album, Deskripsi: e.target.value })}
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          ></textarea>
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition"
-        >
-          Update Album
-        </button>
-      </form>
-
-      {/* Modal Sukses */}
-      {success && (
-        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <CheckCircle className="text-green-500 mx-auto" size={50} />
-            <p className="text-lg font-semibold text-gray-800 mt-3">
-              Album berhasil diperbarui!
-            </p>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-red-800 font-semibold">
+              Nama Album
+            </label>
+            <input
+              type="text"
+              name="NamaAlbum"
+              value={album.NamaAlbum}
+              onChange={(e) =>
+                setAlbum({ ...album, NamaAlbum: e.target.value })
+              }
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300"
+              required
+            />
           </div>
-        </div>
-      )}
+
+          <div>
+            <label className="block text-red-800 font-semibold">
+              Deskripsi
+            </label>
+            <textarea
+              name="Deskripsi"
+              value={album.Deskripsi}
+              onChange={(e) =>
+                setAlbum({ ...album, Deskripsi: e.target.value })
+              }
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-300"
+            ></textarea>
+          </div>
+
+          <div className="flex justify-between space-x-4">
+            <button
+              type="button"
+              onClick={() => navigate("/album")}
+              className="w-1/2 bg-gray-300 text-gray-700 font-semibold py-2 rounded-lg hover:bg-gray-400 transition"
+            >
+              Batal
+            </button>
+
+            <button
+              type="submit"
+              className="w-1/2 bg-red-500 text-white font-semibold py-2 rounded-lg hover:bg-red-600 transition"
+            >
+              Update Album
+            </button>
+          </div>
+        </form>
+
+        {success && (
+          <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+              <CheckCircle className="text-green-500 mx-auto" size={50} />
+              <p className="text-lg font-semibold text-gray-800 mt-3">
+                Album berhasil diperbarui!
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

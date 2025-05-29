@@ -29,10 +29,11 @@ import Album from "./components/Album/Album";
 import EditAlbum from "./components/Album/EditAlbum";
 import HapusAlbum from "./components/Album/HapusAlbum";
 import EditFoto from "./components/Foto/EditFoto";
+import Trash from "./components/Foto/Trash";
 
 const App = () => {
   return (
-    <Router>
+    <Router >
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignUp />}></Route>
@@ -42,7 +43,7 @@ const App = () => {
         <Route path="create-photo" element={<CreateFoto />}></Route>
         <Route path="/create-album" element={<CreateAlbum />}></Route>
         <Route path="/settings" element={<Seeting />}></Route>
-        <Route path="/edit-password" element={<NewPassword />}></Route>
+        <Route path="/settings/edit-password" element={<NewPassword />}></Route>
         <Route path="settings/edit-profile" element={<NewProfile />}></Route>
         <Route path="/comments" element={<CommentsPage />}></Route>
         <Route path="/dashboard" element={<Dashboard />}></Route>
@@ -54,13 +55,14 @@ const App = () => {
         <Route path="/help" element={<HelpCenter />}></Route>
         <Route path="/features" element={<Features />}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route path="/terms-of-service" element={<TermsOfService />}></Route>
+        <Route path="//Syarat&Ketentuan" element={<TermsOfService />}></Route>
         <Route path="/privacy-policy" element={<PrivacyPolicy />}></Route>
         <Route path="/EditFotoModal/:id" element={<EditFotoModal />}></Route>
-        <Route path="/album" element={<Album/>}></Route>
+        <Route path="/album" element={<Album />}></Route>
         <Route path="/edit-album/:id" element={<EditAlbum />}></Route>
         <Route path="/hapus-album/:id" element={<HapusAlbum />}></Route>
         <Route path="/edit-photo/:id" element={<EditFoto />}></Route>
+        <Route path="/trash" element={<Trash />}></Route>
       </Routes>
     </Router>
   );

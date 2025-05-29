@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CheckCircle } from "lucide-react";
+import { FaSpinner } from "react-icons/fa";
+import { IoCloseSharp } from "react-icons/io5";
 
 const NewPassword = () => {
   const [OldPassword, setOldPassword] = useState("");
@@ -14,16 +16,15 @@ const NewPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setMessage("");
 
     if (NewPassword !== ConfirmPassword) {
-      setMessage("Kata sandi baru dan konfirmasi kata sandi tidak cocok");
+      setMessage("Kata sandi baru dan konfirmasi tidak cocok.");
       return;
     }
 
     if (NewPassword.length < 6) {
-      setMessage("Kata sandi baru harus memiliki setidaknya 6 karakter");
+      setMessage("Kata sandi baru minimal terdiri dari 6 karakter.");
       return;
     }
 
@@ -59,10 +60,10 @@ const NewPassword = () => {
     } catch (error) {
       if (error.response) {
         setMessage(
-          error.response?.data?.message || "Gagal memperbarui kata sandi"
+          error.response?.data?.message || "Gagal memperbarui kata sandi."
         );
       } else if (error.request) {
-        setMessage("Tidak dapat menghubungi server. Silakan coba lagi.");
+        setMessage("Tidak dapat menghubungi server. Coba lagi nanti.");
       } else {
         setMessage("Terjadi kesalahan. Silakan coba lagi.");
       }
@@ -72,13 +73,13 @@ const NewPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-sm">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-pink-100 via-white to-pink-50">
+      <div className="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm text-gray-800">
         {success ? (
           <div className="flex flex-col items-center">
             <CheckCircle className="text-green-500 w-16 h-16 mb-4" />
-            <h2 className="text-xl font-semibold text-center mb-4 text-gray-800">
-              Kata Sandi Berhasil Diperbarui!
+            <h2 className="text-xl font-semibold text-center mb-4">
+              Kata sandi berhasil diperbarui!
             </h2>
             <p className="text-center text-sm text-gray-600">
               Anda akan diarahkan ke halaman profil.
@@ -86,21 +87,21 @@ const NewPassword = () => {
           </div>
         ) : (
           <>
-            <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">
-              Ubah Kata Sandi
+            <h2 className="text-2xl font-semibold text-center mb-6">
+              Ganti Kata Sandi
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
                   htmlFor="oldPassword"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium mb-1"
                 >
                   Kata Sandi Lama
                 </label>
                 <input
                   type="password"
                   id="oldPassword"
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 text-gray-800"
+                  className="w-full px-4 py-2 rounded-md border border-red-500 bg-white focus:outline-none focus:ring-2 focus:ring-red-400"
                   value={OldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
                   required
@@ -110,14 +111,14 @@ const NewPassword = () => {
               <div className="mb-4">
                 <label
                   htmlFor="newPassword"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium mb-1"
                 >
                   Kata Sandi Baru
                 </label>
                 <input
                   type="password"
                   id="newPassword"
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 text-gray-800"
+                  className="w-full px-4 py-2 rounded-md border border-red-500 bg-white focus:outline-none focus:ring-2 focus:ring-red-400"
                   value={NewPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
@@ -127,14 +128,14 @@ const NewPassword = () => {
               <div className="mb-6">
                 <label
                   htmlFor="confirmPassword"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium mb-1"
                 >
                   Konfirmasi Kata Sandi Baru
                 </label>
                 <input
                   type="password"
                   id="confirmPassword"
-                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 text-gray-800"
+                  className="w-full px-4 py-2 rounded-md border border-red-500 bg-white focus:outline-none focus:ring-2 focus:ring-red-400"
                   value={ConfirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
@@ -142,29 +143,36 @@ const NewPassword = () => {
               </div>
 
               {message && (
-                <p className="text-sm text-red-400 text-center mb-4">
+                <p className="text-sm text-red-500 text-center mb-4">
                   {message}
                 </p>
               )}
-              <button
-                className={`w-25% py-2 m-1 px-5 bg-gray-400  font-semibold rounded-md shadow-sm ${
-                  loading ? "opacity-50 cursor-not-allowed" : ""
-                }`}
-                disabled={loading}
-                onClick={() => navigate("/myProfile")}
-              >
-                Cancel
-              </button>
 
-              <button
-                type="submit"
-                className={`w-75% py-2 px-4 bg-black text-white font-semibold rounded-md shadow-sm ${
-                  loading ? "opacity-50 cursor-not-allowed" : ""
-                }`}
-                disabled={loading}
-              >
-                {loading ? "Memperbarui..." : "Perbarui Kata Sandi"}
-              </button>
+              <div className="flex justify-between items-center">
+                <button
+                  type="button"
+                  className="flex items-center gap-2 py-2 px-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium rounded-md transition-all duration-200"
+                  onClick={() => navigate("/myProfile")}
+                >
+                  Batal
+                </button>
+
+                <button
+                  type="submit"
+                  className={`flex items-center gap-2 py-2 px-4 bg-red-500 hover:bg-pink-600 text-white font-medium rounded-md transition-all duration-200 ${
+                    loading ? "opacity-60 cursor-not-allowed" : ""
+                  }`}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <FaSpinner className="animate-spin" /> Memproses...
+                    </>
+                  ) : (
+                    "Perbarui"
+                  )}
+                </button>
+              </div>
             </form>
           </>
         )}

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUpload } from "react-icons/fa"; // Icon Upload
-import { CheckCircle } from "lucide-react"; // Icon Check
-import Logo from "../../assets/Logo.jpg"
+import { CheckCircle, ArrowLeftCircle } from "lucide-react"; // Icon Check & Back
+import Logo from "../../assets/LogoGaleriFoto.png";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -75,20 +75,25 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 backdrop-blur-md">
-      <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-2xl transform transition-all duration-500 hover:shadow-3xl">
-        {/* Tambahkan Logo */}
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-red-200 via-white to-red-300 dark:from-sky-900 dark:via-peach-800 dark:to-peach-900 transition-all duration-700">
+      {/* Tombol kembali */}
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-4 left-4 text-black dark:text-white hover:scale-105 transition"
+      >
+        <ArrowLeftCircle className="w-8 h-8" />
+      </button>
+
+      <div className="w-full max-w-sm bg-white dark:bg-gray-800 p-6 rounded-lg shadow-2xl transform transition-all duration-500 hover:shadow-3xl text-gray-800 dark:text-white">
         <img
           src={Logo}
           alt="Logo"
           className="w-24 h-24 mx-auto shadow-lg rounded-full transition-transform duration-300 hover:scale-105"
         />
-        
-        <h1 className="text-2xl font-bold text-gray-800 text-center mt-4">
-          Sign Up
-        </h1>
-        <p className="text-gray-600 text-center mb-4 text-sm">
-          Welcome! Please create an account.
+
+        <h1 className="text-2xl font-bold text-center mt-4">Daftar</h1>
+        <p className="text-center text-sm mb-4">
+          Selamat Datang, Silahkan membuat akun baru anda!
         </p>
 
         {errorMessage && (
@@ -111,10 +116,10 @@ const SignUp = () => {
             <input
               type="text"
               name="NamaLengkap"
-              placeholder="Full name"
+              placeholder="Nama Lengkap"
               value={formData.NamaLengkap}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-black"
+              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700 text-black dark:text-white"
             />
             <input
               type="text"
@@ -122,7 +127,7 @@ const SignUp = () => {
               placeholder="Username"
               value={formData.Username}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-black"
+              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700 text-black dark:text-white"
             />
             <input
               type="email"
@@ -130,16 +135,17 @@ const SignUp = () => {
               placeholder="Email"
               value={formData.Email}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-black"
+              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700 text-black dark:text-white"
             />
-
             <div className="relative">
               <label
                 htmlFor="Profile"
-                className="w-full p-2 border border-gray-300 rounded-md text-sm flex items-center justify-center cursor-pointer bg-white hover:bg-gray-100 transition-all"
+                className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm flex items-center justify-center cursor-pointer bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all text-black dark:text-white"
               >
-                <FaUpload className="mr-2 text-gray-700" />
-                {formData.Profile ? formData.Profile.name : "Upload Profile Picture"}
+                <FaUpload className="mr-2" />
+                {formData.Profile
+                  ? formData.Profile.name
+                  : "Upload Profile Picture"}
               </label>
               <input
                 id="Profile"
@@ -149,41 +155,39 @@ const SignUp = () => {
                 className="hidden"
               />
             </div>
-
             <input
               type="password"
               name="Password"
-              placeholder="Password"
+              placeholder="Kata sandi"
               value={formData.Password}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-black"
+              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700 text-black dark:text-white"
             />
             <input
               type="text"
               name="Alamat"
-              placeholder="Address"
+              placeholder="Alamat"
               value={formData.Alamat}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-black"
+              className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm bg-white dark:bg-gray-700 text-black dark:text-white"
             />
-
             <button
               type="submit"
-              className="w-full py-2 bg-black text-white rounded-md text-sm hover:bg-gray-800 transition-all"
+              className="w-full py-2 bg-red-800 text-white dark:bg-white dark:text-black rounded-md text-sm hover:opacity-80 transition-all"
             >
-              Sign Up
+              Daftar
             </button>
           </form>
         )}
 
         <div className="text-center mt-4">
-          <p className="text-gray-600 text-sm">
-            Already have an account?{" "}
+          <p className="text-sm">
+            Sudah mempunyai akun?{" "}
             <button
-              className="text-black font-semibold hover:underline"
+              className="text-blue-500 dark:text-blue-300 hover:underline font-medium"
               onClick={() => navigate("/signIn")}
             >
-              Log in here
+              Masuk disini
             </button>
           </p>
         </div>

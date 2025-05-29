@@ -94,7 +94,7 @@ const CreateFoto = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white text-black rounded-lg shadow-xl">
+    <div className="max-w-lg mx-auto p-6 bg-[#4b0b0b] text-white rounded-xl shadow-xl">
       <h2 className="text-2xl font-bold text-center mb-6">Tambah Foto</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -103,7 +103,7 @@ const CreateFoto = () => {
             type="text"
             value={judulFoto}
             onChange={(e) => setJudulFoto(e.target.value)}
-            className="w-full p-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 mt-1 border border-[#ff6b6b] bg-[#701c1c] text-white rounded-lg focus:ring-2 focus:ring-[#ff6b6b]"
             required
           />
         </div>
@@ -113,7 +113,7 @@ const CreateFoto = () => {
           <textarea
             value={deskripsiFoto}
             onChange={(e) => setDeskripsiFoto(e.target.value)}
-            className="w-full p-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 mt-1 border border-[#ff6b6b] bg-[#701c1c] text-white rounded-lg focus:ring-2 focus:ring-[#ff6b6b]"
             required
           />
         </div>
@@ -125,48 +125,48 @@ const CreateFoto = () => {
               albumList.map((album) => (
                 <label
                   key={album.AlbumID}
-                  className="flex items-center space-x-2"
+                  className="flex items-center space-x-2 text-white"
                 >
                   <input
                     type="checkbox"
                     value={album.AlbumID}
                     checked={selectedAlbums.includes(album.AlbumID)}
                     onChange={() => handleAlbumSelection(album.AlbumID)}
-                    className="w-4 h-4"
+                    className="w-4 h-4 accent-[#ff6b6b]"
                   />
                   <span>{album.NamaAlbum}</span>
                 </label>
               ))
             ) : (
-              <p className="text-sm text-gray-500">Tidak ada album tersedia</p>
+              <p className="text-sm text-gray-300">Tidak ada album tersedia</p>
             )}
           </div>
         </div>
 
         <div className="mb-6 text-center">
-          <label className="cursor-pointer flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed border-gray-400 rounded-full hover:bg-gray-100">
-            <FaCloudUploadAlt className="text-4xl text-gray-500" />
+          <label className="cursor-pointer flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed border-pink-300 rounded-full hover:bg-[#701c1c] transition">
+            <FaCloudUploadAlt className="text-4xl text-pink-200" />
             <input type="file" className="hidden" onChange={handleFileChange} />
           </label>
-          {file && <p className="mt-2 text-sm text-gray-600">{file.name}</p>}
+          {file && <p className="mt-2 text-sm text-pink-100">{file.name}</p>}
         </div>
 
-        {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
+        {error && <div className="text-red-300 text-sm mb-4">{error}</div>}
 
         <div className="flex justify-end gap-2">
           <button
             type="button"
             onClick={() => navigate("/myProfile")}
-            className="px-4 py-2 border border-gray-400 text-gray-700 rounded-lg hover:bg-gray-200"
+            className="px-4 py-2 border border-pink-200 text-white rounded-lg hover:bg-pink-200 hover:text-[#4b0b0b] transition"
           >
-            Cancel
+            Batal
           </button>
           <button
             type="submit"
             disabled={isLoading}
-            className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            className="px-4 py-2 bg-[#ff6b6b] text-white rounded-lg hover:bg-[#ff4b4b] transition"
           >
-            {isLoading ? "Mengunggah..." : "Download"}
+            {isLoading ? "Mengunggah..." : "Upload"}
           </button>
         </div>
       </form>

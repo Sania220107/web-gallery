@@ -21,7 +21,7 @@ const Dashboard = () => {
   const [error, setError] = useState("");
 
   // Warna untuk Pie Chart
-  const COLORS = ["#4CAF50", "#FF6F61", "#8884d8"];
+  const COLORS = ["#4CAF50", "#8B0000", "#8884d8"];
 
   // Fungsi Fetch Data dari API
   useEffect(() => {
@@ -71,13 +71,13 @@ const Dashboard = () => {
   return (
     <div className="flex h-screen bg-gradient-to-r from-gray-300 via-white to-gray-300">
       {/* Sidebar */}
-      <div className="w-64 bg-gradient-to-b from-gray-800 via-white to-gray-700 text-white p-5 flex flex-col rounded-r-xl shadow-lg">
+      <div className="w-64 bg-gradient-to-b from-red-800 to-pink-200 text-white p-5 flex flex-col rounded-r-xl shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Admin Dashboard</h2>
         <ul className="space-y-4 flex-1">
           <li>
             <Link
               to="/"
-              className="flex items-center space-x-3 text-lg hover:text-gray-400"
+              className="flex items-center space-x-3 text-lg hover:text-pink-100"
             >
               <FaHome size={20} />
               <span>Home</span>
@@ -86,32 +86,31 @@ const Dashboard = () => {
           <li>
             <Link
               to="/user"
-              className="flex items-center space-x-3 text-lg hover:text-gray-400"
+              className="flex items-center space-x-3 text-lg hover:text-pink-100"
             >
               <FaUser size={20} />
               <span>Users</span>
             </Link>
           </li>
-        <button
-          onClick={handleLogout}
-          className="flex items-center space-x-3 text-lg text-red-500 hover:text-red-300"
-        >
-          <FaSignOutAlt size={20} />
-          <span>Logout</span>
-        </button>
-          <li></li>
+          <button
+            onClick={handleLogout}
+            className="flex items-center space-x-3 text-lg bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-500 transition"
+          >
+            <FaSignOutAlt size={20} />
+            <span>Logout</span>
+          </button>
         </ul>
       </div>
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Navbar */}
-        <nav className="bg-white shadow-md p-4 flex justify-between items-center rounded-b-xl">
+        <nav className="bg-gradient-to-r from-red-800 to-pink-200 text-white shadow-md p-4 flex justify-between items-center rounded-b-xl">
           <h2 className="text-xl font-bold">Dashboard</h2>
           <div className="flex items-center space-x-4">
             <span className="font-semibold">{adminName}</span>
-            <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center shadow-md">
-              <FaUser size={20} className="text-gray-600" />
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md">
+              <FaUser size={20} className="text-red-600" />
             </div>
           </div>
         </nav>
@@ -121,7 +120,7 @@ const Dashboard = () => {
           <h2 className="text-3xl font-bold mb-5 text-center">
             Dashboard Overview
           </h2>
-          <div className="bg-white p-6 shadow-xl rounded-xl text-center">
+          <div className="bg-pink-200 p-6 shadow-xl rounded-xl text-center">
             <h3 className="text-xl font-semibold">User Overview</h3>
 
             {/* Loading & Error Handling */}

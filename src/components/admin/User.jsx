@@ -38,11 +38,11 @@ const User = () => {
   }, []);
 
   return (
-    <div className="p-4 bg-gradient-to-r from-gray-300 via-white to-gray-300">
+    <div className="p-4 bg-gradient-to-r from-red-800 via-white to-pink-200">
       {/* Tombol Kembali */}
       <Link
         to="/dashboard"
-        className="flex items-center text-blue-600 hover:text-blue-800 mb-3 text-sm"
+        className="flex items-center text-white hover:text-blue-800 mb-3 text-sm"
       >
         <FaArrowLeft className="mr-1" />
         <span>Kembali ke Dashboard</span>
@@ -55,7 +55,7 @@ const User = () => {
       ) : error ? (
         <p className="text-center text-red-500 text-sm">{error}</p>
       ) : (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center ">
           {/* Tabel User Aktif */}
           <UserTable
             title="Pengguna Aktif"
@@ -67,7 +67,7 @@ const User = () => {
           <UserTable
             title="Pengguna Tidak Aktif"
             users={inactiveUsers}
-            color="text-red-600"
+            color="text-red-800"
           />
 
           {/* Tabel User Dihapus */}
@@ -84,7 +84,7 @@ const User = () => {
 
 // Komponen Reusable untuk menampilkan tabel
 const UserTable = ({ title, users, color }) => (
-  <div className="mb-6 w-full max-w-md">
+  <div className="mb-6 w-full max-w-md bg-white">
     {" "}
     {/* Lebar tabel dibatasi */}
     <h3 className={`text-base font-semibold mb-2 text-center ${color}`}>
