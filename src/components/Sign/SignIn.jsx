@@ -40,7 +40,7 @@ const SignIn = () => {
         return;
       }
 
-      const response = await axios.post("http://localhost:5000/auth/login", {
+      const response = await axios.post("https://dbgallery-production.up.railway.app/auth/login", {
         Email: email,
         Password: password,
       });

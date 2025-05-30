@@ -36,7 +36,7 @@ const CardGrid = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/foto/");
+        const response = await fetch("https://dbgallery-production.up.railway.app/foto/");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -54,7 +54,7 @@ const CardGrid = () => {
               }));
             } else {
               const likeCountResponse = await fetch(
-                `http://localhost:5000/foto/count/${card.FotoID}`
+                `https://dbgallery-production.up.railway.app/foto/count/${card.FotoID}`
               );
               const likeCountData = await likeCountResponse.json();
               if (likeCountData.success) {
@@ -75,7 +75,7 @@ const CardGrid = () => {
             }
 
             const commentCountResponse = await fetch(
-              `http://localhost:5000/komentar/foto/count/${card.FotoID}`
+              `https://dbgallery-production.up.railway.app/komentar/foto/count/${card.FotoID}`
             );
             const commentCountData = await commentCountResponse.json();
             if (commentCountData.success) {
@@ -107,7 +107,7 @@ const CardGrid = () => {
     if (!searchQuery.trim()) return;
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/search/username?Username=${searchQuery}`
+        `https://dbgallery-production.up.railway.app/users/search/username?Username=${searchQuery}`
       );
       setSearchResults(response.data.data || []);
     } catch (error) {
@@ -130,8 +130,8 @@ const CardGrid = () => {
 
     const isLiked = likedPhotos.includes(fotoID);
     const url = isLiked
-      ? `http://localhost:5000/like/foto/${fotoID}`
-      : "http://localhost:5000/like";
+      ? `https://dbgallery-production.up.railway.app/like/foto/${fotoID}`
+      : "https://dbgallery-production.up.railway.app/like";
 
     try {
       const response = await fetch(url, {
@@ -183,7 +183,7 @@ const CardGrid = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/komentar/foto/${fotoID}`
+        `https://dbgallery-production.up.railway.app/komentar/foto/${fotoID}`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -204,7 +204,7 @@ const CardGrid = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/komentar/", {
+      const response = await fetch("https://dbgallery-production.up.railway.app/komentar/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -303,8 +303,8 @@ const CardGrid = () => {
                 <img
                   src={
                     card.User.Profile
-                      ? `http://localhost:5000/uploads/${card.User.Profile}`
-                      : "http://localhost:5000/uploads/default-avatar.png"
+                      ? `https://dbgallery-production.up.railway.app/uploads/${card.User.Profile}`
+                      : "https://dbgallery-production.up.railway.app/uploads/default-avatar.png"
                   }
                   alt="Profile"
                   className="w-12 h-12 rounded-full object-cover"
@@ -329,8 +329,8 @@ const CardGrid = () => {
               <img
                 src={
                   card.LokasiFile
-                    ? `http://localhost:5000/uploads/${card.LokasiFile}`
-                    : "http://localhost:5000/uploads/default-photo.jpg"
+                    ? `https://dbgallery-production.up.railway.app/uploads/${card.LokasiFile}`
+                    : "https://dbgallery-production.up.railway.app/uploads/default-photo.jpg"
                 }
                 alt={card.JudulFoto}
                 className="w-full h-56 object-cover rounded-lg mb-4 text-black"
@@ -403,8 +403,8 @@ const CardGrid = () => {
           <img
             src={
               comment.User?.Profile
-                ? `http://localhost:5000/uploads/${comment.User.Profile}`
-                : "http://localhost:5000/uploads/default-avatar.png"
+                ? `https://dbgallery-production.up.railway.app/uploads/${comment.User.Profile}`
+                : "https://dbgallery-production.up.railway.app/uploads/default-avatar.png"
             }
             alt="Profile"
             className="w-8 h-8 rounded-full object-cover"

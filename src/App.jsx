@@ -33,7 +33,6 @@ import Trash from "./components/Foto/Trash";
 
 const App = () => {
   return (
-    <Router >
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignUp />}></Route>
@@ -64,7 +63,6 @@ const App = () => {
         <Route path="/edit-photo/:id" element={<EditFoto />}></Route>
         <Route path="/trash" element={<Trash />}></Route>
       </Routes>
-    </Router>
   );
 };
 

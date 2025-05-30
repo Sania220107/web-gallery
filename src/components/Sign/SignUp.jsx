@@ -54,10 +54,13 @@ const SignUp = () => {
       formDataToSend.append("Password", formData.Password);
       formDataToSend.append("Alamat", formData.Alamat);
 
-      const response = await fetch("http://localhost:5000/users/", {
-        method: "POST",
-        body: formDataToSend,
-      });
+      const response = await fetch(
+        "https://dbgallery-production.up.railway.app/users/",
+        {
+          method: "POST",
+          body: formDataToSend,
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to create user: " + response.statusText);
