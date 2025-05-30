@@ -40,10 +40,13 @@ const SignIn = () => {
         return;
       }
 
-      const response = await axios.post("https://dbgallery-production.up.railway.app/auth/login", {
-        Email: email,
-        Password: password,
-      });
+      const response = await axios.post(
+        "https://dbgallery-production.up.railway.app/auth/login",
+        {
+          Email: email,
+          Password: password,
+        }
+      );
 
       if (response.status === 200) {
         const data = response.data;
