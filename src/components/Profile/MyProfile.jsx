@@ -51,7 +51,7 @@ const MyProfile = () => {
         }
 
         const profileResponse = await fetch(
-          "http://localhost:5000/users/profile",
+          "https://dbgallery-production.up.railway.app/users/profile",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -65,7 +65,7 @@ const MyProfile = () => {
         
 
         const likeResponse = await fetch(
-          "http://localhost:5000/like/foto/semua/count",
+          "https://dbgallery-production.up.railway.app/like/foto/semua/count",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -76,7 +76,7 @@ const MyProfile = () => {
         if (likeData.success) setLikeCount(likeData.data);
 
         const photosResponse = await fetch(
-          "http://localhost:5000/foto/users/me",
+          "https://dbgallery-production.up.railway.app/foto/users/me",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -100,7 +100,7 @@ const MyProfile = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await fetch(
-        `http://localhost:5000/foto/${photoToDelete}`,
+        `https://dbgallery-production.up.railway.app/foto/${photoToDelete}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
@@ -113,7 +113,7 @@ const MyProfile = () => {
         setPhotoToDelete(null);
 
         const photosResponse = await fetch(
-          "http://localhost:5000/foto/users/me",
+          "https://dbgallery-production.up.railway.app/foto/users/me",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -135,7 +135,7 @@ const MyProfile = () => {
 
   const openPhotoModal = async (FotoID) => {
     try {
-      const response = await fetch(`http://localhost:5000/foto/${FotoID}`);
+      const response = await fetch(`https://dbgallery-production.up.railway.app/foto/${FotoID}`);
       const photoData = await response.json();
       if (photoData.success) {
         setSelectedPhoto(photoData.data);
@@ -164,7 +164,7 @@ const MyProfile = () => {
 
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await fetch("http://localhost:5000/komentar/", {
+      const response = await fetch("https://dbgallery-production.up.railway.app/komentar/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -198,7 +198,7 @@ const MyProfile = () => {
   const handleDeleteComment = async (KomentarID) => {
     try {
       const token = localStorage.getItem("accessToken");
-      await fetch(`http://localhost:5000/komentar/${KomentarID}`, {
+      await fetch(`https://dbgallery-production.up.railway.app/komentar/${KomentarID}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -219,7 +219,7 @@ const MyProfile = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await fetch(
-        `http://localhost:5000/komentar/${KomentarID}`,
+        `https://dbgallery-production.up.railway.app/komentar/${KomentarID}`,
         {
           method: "PUT",
           headers: {
@@ -252,7 +252,7 @@ const MyProfile = () => {
   const fetchCommentsByPhotoID = async (fotoID) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/komentar/foto/${fotoID}`
+        `https://dbgallery-production.up.railway.app/komentar/foto/${fotoID}`
       );
       const data = await response.json();
       if (data.success) {
@@ -275,7 +275,7 @@ const MyProfile = () => {
 
       // Ambil jumlah like untuk foto
       const likeResponse = await fetch(
-        `http://localhost:5000/like/foto/count/${fotoID}`,
+        `https://dbgallery-production.up.railway.app/like/foto/count/${fotoID}`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
@@ -291,7 +291,7 @@ const MyProfile = () => {
 
       // Ambil jumlah komentar untuk foto
       const commentResponse = await fetch(
-        `http://localhost:5000/komentar/foto/count/${fotoID}`,
+        `https://dbgallery-production.up.railway.app/komentar/foto/count/${fotoID}`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
@@ -359,7 +359,7 @@ const MyProfile = () => {
       <main className="flex-1 p-4 sm:p-8 max-w-7xl mx-auto">
         <div className="bg-white dark:from-sky-800 dark:via-sky-900 dark:to-gray-900 p-6 rounded-lg shadow-md flex flex-wrap items-center transition-all duration-300">
           <img
-            src={`http://localhost:5000/uploads/${userData.Profile}`}
+            src={`https://dbgallery-production.up.railway.app/uploads/${userData.Profile}`}
             alt="Profile"
             className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-pink-300 dark:border-sky-500"
             onError={(e) => (e.target.src = "/default-avatar.png")}
@@ -396,7 +396,7 @@ const MyProfile = () => {
               onClick={() => openPhotoModal(photo.FotoID)}
             >
               <img
-                src={`http://localhost:5000/uploads/${
+                src={`https://dbgallery-production.up.railway.app/uploads/${
                   photo.LokasiFile
                 }?${new Date().getTime()}`}
                 alt="Photo"
@@ -486,7 +486,7 @@ const MyProfile = () => {
         <div
           className="fixed inset-0 flex items-center justify-center  bg-opacity-50"
           style={{
-            backgroundImage: `url(http://localhost:5000/uploads/${selectedPhoto.ProfileBackground})`,
+            backgroundImage: `url(https://dbgallery-production.up.railway.app/uploads/${selectedPhoto.ProfileBackground})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -496,7 +496,7 @@ const MyProfile = () => {
               {/* Foto Section */}
               <div className="md:w-1/2">
                 <img
-                  src={`http://localhost:5000/uploads/${selectedPhoto.LokasiFile}`}
+                  src={`https://dbgallery-production.up.railway.app/uploads/${selectedPhoto.LokasiFile}`}
                   alt="Selected Photo"
                   className="w-full max-h-screen object-contain rounded-lg"
                 />
@@ -523,7 +523,7 @@ const MyProfile = () => {
                           className="flex items-start space-x-3 p-3 bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-sm"
                         >
                           <img
-                            src={`http://localhost:5000/uploads/${comment.User?.Profile}`}
+                            src={`https://dbgallery-production.up.railway.app/uploads/${comment.User?.Profile}`}
                             alt="Profile"
                             className="w-10 h-10 object-cover rounded-full"
                           />

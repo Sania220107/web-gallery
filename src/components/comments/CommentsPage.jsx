@@ -11,7 +11,7 @@ const CommentsPage = () => {
   // Ambil data komentar berdasarkan FotoID
   useEffect(() => {
     if (photoId) {
-      fetch(`http://localhost:5000/komentar/foto/${photoId}`, {
+      fetch(`https://dbgallery-production.up.railway.app/komentar/foto/${photoId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const CommentsPage = () => {
     if (newComment.trim() === "") return; // Prevent empty comment submission
 
     // Kirim komentar baru ke server
-    fetch("http://localhost:5000/komentar/", {
+    fetch("https://dbgallery-production.up.railway.app/komentar/", {
       method: "POST",
       body: JSON.stringify({ comment: newComment, fotoId: photoId }), // Include fotoId
       headers: {
@@ -64,7 +64,7 @@ const CommentsPage = () => {
         <h2 className="text-2xl font-semibold">Photo</h2>
         {/* Dynamically set the image source using the photoId */}
         <img
-          src={`http://localhost:5000/uploads/${photoId}.jpg`} // URL now includes dynamic photoId
+          src={`https://dbgallery-production.up.railway.app/uploads/${photoId}.jpg`} // URL now includes dynamic photoId
           alt="Designer Work"
           className="w-full h-auto mb-4 cursor-pointer"
           onClick={() => handlePhotoClick(photoId)} // Click will set the photoId

@@ -22,7 +22,7 @@ const CreateFoto = () => {
       }
       try {
         const response = await axios.get(
-          "http://localhost:5000/album/users/me",
+          "https://dbgallery-production.up.railway.app/album/users/me",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -73,7 +73,7 @@ const CreateFoto = () => {
     setIsLoading(true);
     setError("");
     try {
-      await axios.post("http://localhost:5000/foto/", formData, {
+      await axios.post("https://dbgallery-production.up.railway.app/foto/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

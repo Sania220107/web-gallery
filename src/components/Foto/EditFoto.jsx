@@ -17,7 +17,7 @@ const EditFoto = () => {
     const fetchPhoto = async () => {
       try {
         const token = localStorage.getItem("accessToken");
-        const response = await fetch(`http://localhost:5000/foto/${id}`, {
+        const response = await fetch(`https://dbgallery-production.up.railway.app/foto/${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -52,7 +52,7 @@ const EditFoto = () => {
 
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await fetch(`http://localhost:5000/foto/${id}`, {
+      const response = await fetch(`https://dbgallery-production.up.railway.app/foto/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,

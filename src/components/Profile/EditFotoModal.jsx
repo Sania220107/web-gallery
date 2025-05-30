@@ -24,7 +24,7 @@ const EditFotoModal = () => {
       try {
         // Ambil data album
         const albumResponse = await axios.get(
-          "http://localhost:5000/album/users/me",
+          "https://dbgallery-production.up.railway.app/album/users/me",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -33,7 +33,7 @@ const EditFotoModal = () => {
 
         // Ambil data foto yang akan diedit
         const fotoResponse = await axios.get(
-          `http://localhost:5000/foto/${id}`,
+          `https://dbgallery-production.up.railway.app/foto/${id}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -83,7 +83,7 @@ const EditFotoModal = () => {
     setIsLoading(true);
     setError("");
     try {
-      await axios.put(`http://localhost:5000/foto/${id}`, formData, {
+      await axios.put(`https://dbgallery-production.up.railway.app/foto/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,

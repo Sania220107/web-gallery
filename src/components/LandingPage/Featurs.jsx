@@ -15,7 +15,7 @@ const Featurs = () => {
                 }
 
                 const FeatursResponse = await fetch(
-                  "http://localhost:5000/foto/",
+                  "https://dbgallery-production.up.railway.app/foto/",
                   {
                     method: "GET",
                     headers: { Authorization: `Bearer ${token}` },

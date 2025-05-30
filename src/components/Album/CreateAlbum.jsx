@@ -20,14 +20,17 @@ const CreateAlbum = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/album", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ NamaAlbum, Deskripsi }),
-      });
+      const response = await fetch(
+        "https://dbgallery-production.up.railway.app/album",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ NamaAlbum, Deskripsi }),
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {

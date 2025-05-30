@@ -14,13 +14,13 @@ const User = () => {
     const fetchUsers = async () => {
       try {
         const activeRes = await axios.get(
-          "http://localhost:5000/users/users/active"
+          "https://dbgallery-production.up.railway.app/users/users/active"
         );
         const inactiveRes = await axios.get(
-          "http://localhost:5000/users/users/isactive"
+          "https://dbgallery-production.up.railway.app/users/users/isactive"
         );
         const deletedRes = await axios.get(
-          "http://localhost:5000/users/users/delete"
+          "https://dbgallery-production.up.railway.app/users/users/delete"
         );
 
         setActiveUsers(activeRes.data.data);

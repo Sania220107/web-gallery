@@ -14,7 +14,7 @@ const Trash = () => {
       const token = localStorage.getItem("accessToken");
       try {
         const response = await axios.get(
-          "http://localhost:5000/foto/users/history",
+          "https://dbgallery-production.up.railway.app/foto/users/history",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ const Trash = () => {
 
     try {
       await axios.put(
-        `http://localhost:5000/foto/users/restore/${fotoID}`,
+        `https://dbgallery-production.up.railway.app/foto/users/restore/${fotoID}`,
         {},
         {
           headers: {
@@ -96,7 +96,7 @@ const Trash = () => {
               className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-peach-200"
             >
               <img
-                src={`http://localhost:5000/uploads/${foto.LokasiFile}`}
+                src={`https://dbgallery-production.up.railway.app/uploads/${foto.LokasiFile}`}
                 alt={foto.JudulFoto}
                 className="w-full h-48 object-cover"
               />
