@@ -22,7 +22,7 @@ const CreateFoto = () => {
       }
       try {
         const response = await axios.get(
-          "https://dbgallery-production.up.railway.app/album/users/me",
+          "https://gallerydb-production.up.railway.app/album/users/me",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -73,12 +73,16 @@ const CreateFoto = () => {
     setIsLoading(true);
     setError("");
     try {
-      await axios.post("https://dbgallery-production.up.railway.app/foto/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.post(
+        "https://gallerydb-production.up.railway.app/foto/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setJudulFoto("");
       setDeskripsiFoto("");
       setSelectedAlbums([]);

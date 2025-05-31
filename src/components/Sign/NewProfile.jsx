@@ -18,9 +18,12 @@ const NewProfile = () => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("accessToken");
 
-      const response = await fetch(`https://dbgallery-production.up.railway.app/user/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `https://gallerydb-production.up.railway.app/user/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
@@ -63,13 +66,16 @@ const NewProfile = () => {
     const token = localStorage.getItem("accessToken");
 
     try {
-      const response = await fetch(`https://dbgallery-production.up.railway.app/user/${id}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        `https://gallerydb-production.up.railway.app/user/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
 
       const data = await response.json();
 
@@ -150,7 +156,7 @@ const NewProfile = () => {
           {userData.Profile && !newProfile && (
             <div className="mt-2">
               <img
-                src={`https://dbgallery-production.up.railway.app/uploads/${userData.Profile}`}
+                src={`https://gallerydb-production.up.railway.app/uploads/${userData.Profile}`}
                 alt="Profile"
                 className="w-32 h-32 object-cover rounded-full"
               />

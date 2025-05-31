@@ -28,13 +28,13 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const activeRes = await axios.get(
-          "https://dbgallery-production.up.railway.app/users/active/count"
+          "https://gallerydb-production.up.railway.app/users/active/count"
         );
         const inactiveRes = await axios.get(
-          "https://dbgallery-production.up.railway.app/users/isactive/count"
+          "https://gallerydb-production.up.railway.app/users/isactive/count"
         );
         const deletedRes = await axios.get(
-          "https://dbgallery-production.up.railway.app/users/delete/count"
+          "https://gallerydb-production.up.railway.app/users/delete/count"
         );
 
         const newData = [

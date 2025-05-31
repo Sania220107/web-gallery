@@ -14,7 +14,7 @@ const Trash = () => {
       const token = localStorage.getItem("accessToken");
       try {
         const response = await axios.get(
-          "https://dbgallery-production.up.railway.app/foto/users/history",
+          "https://gallerydb-production.up.railway.app/foto/users/history",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ const Trash = () => {
 
     try {
       await axios.put(
-        `https://dbgallery-production.up.railway.app/foto/users/restore/${fotoID}`,
+        `https://gallerydb-production.up.railway.app/foto/users/restore/${fotoID}`,
         {},
         {
           headers: {
@@ -96,13 +96,13 @@ const Trash = () => {
               className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-peach-200"
             >
               <img
-                src={`https://dbgallery-production.up.railway.app/uploads/${foto.LokasiFile}`}
+                src={`https://gallerydb-production.up.railway.app/uploads/${foto.LokasiFile}`}
                 alt={foto.JudulFoto}
                 className="w-full h-48 object-cover"
               />
               <div className="p-4">
                 <h2 className="text-lg font-bold truncate">{foto.JudulFoto}</h2>
-                
+
                 <p className="text-xs text-gray-400 mb-4">
                   Dihapus pada:{" "}
                   {new Date(foto.deletedAt).toLocaleDateString("id-ID")}

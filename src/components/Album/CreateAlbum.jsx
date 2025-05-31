@@ -21,7 +21,7 @@ const CreateAlbum = () => {
 
     try {
       const response = await fetch(
-        "https://dbgallery-production.up.railway.app/album",
+        "https://gallerydb-production.up.railway.app/album",
         {
           method: "POST",
           headers: {

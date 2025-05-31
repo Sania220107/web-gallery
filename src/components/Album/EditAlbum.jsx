@@ -23,7 +23,7 @@ const EditAlbum = () => {
           return;
         }
 
-        const response = await fetch(`https://dbgallery-production.up.railway.app/album/${id}`, {
+        const response = await fetch(`https://gallerydb-production.up.railway.app/album/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -47,7 +47,7 @@ const EditAlbum = () => {
     try {
       const token = localStorage.getItem("accessToken");
 
-      const response = await fetch(`https://dbgallery-production.up.railway.app/album/${id}`, {
+      const response = await fetch(`https://gallerydb-production.up.railway.app/album/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

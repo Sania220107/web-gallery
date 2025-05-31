@@ -22,7 +22,7 @@ const Album = () => {
         }
 
         const albumsResponse = await fetch(
-          "https://dbgallery-production.up.railway.app/album/users/me",
+          "https://gallerydb-production.up.railway.app/album/users/me",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -51,7 +51,7 @@ const Album = () => {
         albums.map(async (album) => {
           try {
             const response = await fetch(
-              `https://dbgallery-production.up.railway.app/foto/count/album/${album.AlbumID}`,
+              `https://gallerydb-production.up.railway.app/foto/count/album/${album.AlbumID}`,
               {
                 headers: { Authorization: `Bearer ${token}` },
               }
@@ -101,7 +101,7 @@ const Album = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await fetch(
-        `https://dbgallery-production.up.railway.app/album/${selectedAlbum.AlbumID}`,
+        `https://gallerydb-production.up.railway.app/album/${selectedAlbum.AlbumID}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
@@ -157,7 +157,7 @@ const Album = () => {
           >
             <div
               style={{
-                backgroundImage: `url(https://dbgallery-production.up.railway.app/uploads/${
+                backgroundImage: `url(https://gallerydb-production.up.railway.app/uploads/${
                   album.FirstFotoUrl || "default-image.jpg"
                 })`,
                 backgroundSize: "cover",

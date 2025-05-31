@@ -15,7 +15,7 @@ const FotoAlbum = () => {
     const fetchPhotos = async () => {
       try {
         const response = await fetch(
-          `https://dbgallery-production.up.railway.app/foto/album/${AlbumID}`,
+          `https://gallerydb-production.up.railway.app/foto/album/${AlbumID}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -74,7 +74,7 @@ const FotoAlbum = () => {
                 }}
               >
                 <img
-                  src={`https://dbgallery-production.up.railway.app/uploads/${photo.LokasiFile}`}
+                  src={`https://gallerydb-production.up.railway.app/uploads/${photo.LokasiFile}`}
                   alt={photo.JudulFoto}
                   className="w-full h-56 sm:h-64 object-cover"
                 />

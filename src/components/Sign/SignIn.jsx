@@ -41,7 +41,7 @@ const SignIn = () => {
       }
 
       const response = await axios.post(
-        "https://dbgallery-production.up.railway.app/auth/login",
+        "https://gallerydb-production.up.railway.app/auth/login",
         {
           Email: email,
           Password: password,

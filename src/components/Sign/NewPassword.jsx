@@ -39,7 +39,7 @@ const NewPassword = () => {
 
     try {
       const response = await axios.put(
-        "https://dbgallery-production.up.railway.app/users/update/password",
+        "https://gallerydb-production.up.railway.app/users/update/password",
         {
           OldPassword,
           NewPassword,

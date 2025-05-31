@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaCog, FaHeart, FaTrash, FaPlus, FaEllipsisV, FaComment } from "react-icons/fa";
-import { FiLogIn,FiLogOut, FiMoreVertical } from "react-icons/fi";
+import {
+  FaCog,
+  FaHeart,
+  FaTrash,
+  FaPlus,
+  FaEllipsisV,
+  FaComment,
+} from "react-icons/fa";
+import { FiLogIn, FiLogOut, FiMoreVertical } from "react-icons/fi";
 import { HiOutlineLogin } from "react-icons/hi";
 import { MdLock } from "react-icons/md";
 import { IoMdSend, IoMdMore, IoMdAlbums } from "react-icons/io";
 import axios from "axios";
-
 
 const MyProfile = () => {
   const [userData, setUserData] = useState({
@@ -32,8 +38,6 @@ const MyProfile = () => {
   const [commentDropdownOpen, setCommentDropdownOpen] = useState(null);
   const [deletePosition, setDeletePosition] = useState({ top: 0, left: 0 });
 
-
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -51,7 +55,7 @@ const MyProfile = () => {
         }
 
         const profileResponse = await fetch(
-          "https://dbgallery-production.up.railway.app/users/profile",
+          "https://gallerydb-production.up.railway.app/users/profile",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -62,10 +66,8 @@ const MyProfile = () => {
         const profileData = await profileResponse.json();
         if (profileData.success) setUserData(profileData.data);
 
-        
-
         const likeResponse = await fetch(
-          "https://dbgallery-production.up.railway.app/like/foto/semua/count",
+          "https://gallerydb-production.up.railway.app/like/foto/semua/count",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -76,7 +78,7 @@ const MyProfile = () => {
         if (likeData.success) setLikeCount(likeData.data);
 
         const photosResponse = await fetch(
-          "https://dbgallery-production.up.railway.app/foto/users/me",
+          "https://gallerydb-production.up.railway.app/foto/users/me",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -93,14 +95,13 @@ const MyProfile = () => {
     fetchProfileData();
   }, [navigate]);
 
-
   const handleDeletePhoto = async () => {
     if (!photoToDelete) return;
 
     try {
       const token = localStorage.getItem("accessToken");
       const response = await fetch(
-        `https://dbgallery-production.up.railway.app/foto/${photoToDelete}`,
+        `https://gallerydb-production.up.railway.app/foto/${photoToDelete}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
@@ -113,7 +114,7 @@ const MyProfile = () => {
         setPhotoToDelete(null);
 
         const photosResponse = await fetch(
-          "https://dbgallery-production.up.railway.app/foto/users/me",
+          "https://gallerydb-production.up.railway.app/foto/users/me",
           {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
@@ -135,7 +136,9 @@ const MyProfile = () => {
 
   const openPhotoModal = async (FotoID) => {
     try {
-      const response = await fetch(`https://dbgallery-production.up.railway.app/foto/${FotoID}`);
+      const response = await fetch(
+        `https://gallerydb-production.up.railway.app/foto/${FotoID}`
+      );
       const photoData = await response.json();
       if (photoData.success) {
         setSelectedPhoto(photoData.data);
@@ -157,24 +160,25 @@ const MyProfile = () => {
     });
   };
 
-
-
   const handleAddComment = async () => {
     if (!IsiKomentar) return;
 
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await fetch("https://dbgallery-production.up.railway.app/komentar/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          FotoID: selectedPhoto.FotoID,
-          IsiKomentar: IsiKomentar,
-        }),
-      });
+      const response = await fetch(
+        "https://gallerydb-production.up.railway.app/komentar/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            FotoID: selectedPhoto.FotoID,
+            IsiKomentar: IsiKomentar,
+          }),
+        }
+      );
       const data = await response.json();
       if (data.success) {
         // Tambahkan komentar baru ke dalam state
@@ -193,15 +197,18 @@ const MyProfile = () => {
     }
   };
 
-  console.log("Selected: ",selectedPhoto)
+  console.log("Selected: ", selectedPhoto);
 
   const handleDeleteComment = async (KomentarID) => {
     try {
       const token = localStorage.getItem("accessToken");
-      await fetch(`https://dbgallery-production.up.railway.app/komentar/${KomentarID}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await fetch(
+        `https://gallerydb-production.up.railway.app/komentar/${KomentarID}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       // Perbarui daftar komentar
       setSelectedPhoto((prev) => ({
@@ -219,7 +226,7 @@ const MyProfile = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await fetch(
-        `https://dbgallery-production.up.railway.app/komentar/${KomentarID}`,
+        `https://gallerydb-production.up.railway.app/komentar/${KomentarID}`,
         {
           method: "PUT",
           headers: {
@@ -248,11 +255,10 @@ const MyProfile = () => {
     }
   };
 
-
   const fetchCommentsByPhotoID = async (fotoID) => {
     try {
       const response = await fetch(
-        `https://dbgallery-production.up.railway.app/komentar/foto/${fotoID}`
+        `https://gallerydb-production.up.railway.app/komentar/foto/${fotoID}`
       );
       const data = await response.json();
       if (data.success) {
@@ -266,8 +272,6 @@ const MyProfile = () => {
     }
   };
 
-
-
   const fetchLikeAndCommentCount = async (fotoID) => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -275,7 +279,7 @@ const MyProfile = () => {
 
       // Ambil jumlah like untuk foto
       const likeResponse = await fetch(
-        `https://dbgallery-production.up.railway.app/like/foto/count/${fotoID}`,
+        `https://gallerydb-production.up.railway.app/like/foto/count/${fotoID}`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
@@ -291,7 +295,7 @@ const MyProfile = () => {
 
       // Ambil jumlah komentar untuk foto
       const commentResponse = await fetch(
-        `https://dbgallery-production.up.railway.app/komentar/foto/count/${fotoID}`,
+        `https://gallerydb-production.up.railway.app/komentar/foto/count/${fotoID}`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
@@ -308,8 +312,6 @@ const MyProfile = () => {
       console.error("Error fetching like/comment counts:", error);
     }
   };
-
- 
 
   return (
     <div className="min-h-screen flex bg-red-100">
@@ -359,7 +361,7 @@ const MyProfile = () => {
       <main className="flex-1 p-4 sm:p-8 max-w-7xl mx-auto">
         <div className="bg-white dark:from-sky-800 dark:via-sky-900 dark:to-gray-900 p-6 rounded-lg shadow-md flex flex-wrap items-center transition-all duration-300">
           <img
-            src={`https://dbgallery-production.up.railway.app/uploads/${userData.Profile}`}
+            src={`https://gallerydb-production.up.railway.app/uploads/${userData.Profile}`}
             alt="Profile"
             className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-pink-300 dark:border-sky-500"
             onError={(e) => (e.target.src = "/default-avatar.png")}
@@ -396,7 +398,7 @@ const MyProfile = () => {
               onClick={() => openPhotoModal(photo.FotoID)}
             >
               <img
-                src={`https://dbgallery-production.up.railway.app/uploads/${
+                src={`https://gallerydb-production.up.railway.app/uploads/${
                   photo.LokasiFile
                 }?${new Date().getTime()}`}
                 alt="Photo"
@@ -486,7 +488,7 @@ const MyProfile = () => {
         <div
           className="fixed inset-0 flex items-center justify-center  bg-opacity-50"
           style={{
-            backgroundImage: `url(https://dbgallery-production.up.railway.app/uploads/${selectedPhoto.ProfileBackground})`,
+            backgroundImage: `url(https://gallerydb-production.up.railway.app/uploads/${selectedPhoto.ProfileBackground})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -496,7 +498,7 @@ const MyProfile = () => {
               {/* Foto Section */}
               <div className="md:w-1/2">
                 <img
-                  src={`https://dbgallery-production.up.railway.app/uploads/${selectedPhoto.LokasiFile}`}
+                  src={`https://gallerydb-production.up.railway.app/uploads/${selectedPhoto.LokasiFile}`}
                   alt="Selected Photo"
                   className="w-full max-h-screen object-contain rounded-lg"
                 />
@@ -523,7 +525,7 @@ const MyProfile = () => {
                           className="flex items-start space-x-3 p-3 bg-white bg-opacity-60 backdrop-blur-md rounded-2xl shadow-sm"
                         >
                           <img
-                            src={`https://dbgallery-production.up.railway.app/uploads/${comment.User?.Profile}`}
+                            src={`https://gallerydb-production.up.railway.app/uploads/${comment.User?.Profile}`}
                             alt="Profile"
                             className="w-10 h-10 object-cover rounded-full"
                           />

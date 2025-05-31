@@ -55,7 +55,7 @@ const SignUp = () => {
       formDataToSend.append("Alamat", formData.Alamat);
 
       const response = await fetch(
-        "https://dbgallery-production.up.railway.app/users/",
+        "https://gallerydb-production.up.railway.app/users/",
         {
           method: "POST",
           body: formDataToSend,

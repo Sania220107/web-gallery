@@ -17,12 +17,15 @@ const EditFoto = () => {
     const fetchPhoto = async () => {
       try {
         const token = localStorage.getItem("accessToken");
-        const response = await fetch(`https://dbgallery-production.up.railway.app/foto/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `https://gallerydb-production.up.railway.app/foto/${id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = await response.json();
         if (data.success) {
@@ -52,13 +55,16 @@ const EditFoto = () => {
 
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await fetch(`https://dbgallery-production.up.railway.app/foto/${id}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        `https://gallerydb-production.up.railway.app/foto/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
 
       const data = await response.json();
 
@@ -112,7 +118,9 @@ const EditFoto = () => {
 
           {/* Upload File */}
           <div>
-            <label className="block text-sm font-medium">Unggah Foto Baru</label>
+            <label className="block text-sm font-medium">
+              Unggah Foto Baru
+            </label>
             <input
               type="file"
               id="LokasiFile"
